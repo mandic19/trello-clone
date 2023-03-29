@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { useRef } from "react";
 import { useEffect } from "react";
-import * as reoderHelper from "../../../libs/helpers/reoderHelper";
 import useForm from "../../../libs/hooks/useForm";
 
 const useBoard = ({
@@ -17,14 +15,6 @@ const useBoard = ({
   const { form, setForm, resetForm, onChange, getParams, validate } = useForm({
     name: { rules: ["required"], value: board.name },
   });
-
-  const [boardSections, setBoardSections] = useState(sections);
-
-  useEffect(() => {
-    if (isMounted.current) {
-      setBoardSections(sections);
-    }
-  }, [sections]);
 
   useEffect(() => {
     isMounted.current = true;
@@ -55,41 +45,15 @@ const useBoard = ({
     setForm({ ...form, isValid, errors, isSubmitted: true });
   };
 
-  const onSectionDragEnd = (res) => {
+  const onSectionDragEnd = ({ oldIndex, newIndex, item }) => {
+    if (oldIndex === newIndex) return;
 
-    // dropped outside the list
-    if (!res.destination) {
-      return;
+    const sectionId = parseInt(item.dataset.id);
+    const section = sections.find((x) => x.id === sectionId);
+
+    if (section) {
+      reorderSection(section, { order: newIndex });
     }
-
-    const srcIndex = res.source.index;
-    const destIndex = res.destination.index;
-
-    if (srcIndex === destIndex) return;
-
-    const sectionId = parseInt(res.draggableId);
-    const order = destIndex;
-
-    const { increment, bottomLimit, topLimit } = reoderHelper.getParams(
-      srcIndex,
-      destIndex
-    );
-
-    setBoardSections((prev) =>
-      prev
-        .map((s) => {
-          if (s.id === sectionId) {
-            return { ...s, order };
-          } else if (s.order >= bottomLimit && s.order <= topLimit) {
-            return { ...s, order: s.order + increment };
-          }
-
-          return s;
-        })
-        .sort((a, b) => a.order - b.order)
-    );
-
-    reorderSection(sectionId, { order });
   };
 
   const onTaskDragEnd = (res) => {
@@ -117,7 +81,7 @@ const useBoard = ({
 
   return {
     board,
-    boardSections,
+    sections,
     form,
     onChange,
     onSubmit,

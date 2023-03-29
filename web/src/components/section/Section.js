@@ -53,7 +53,7 @@ const Section = (props) => {
           </div>
         )}
         <div className="footer sortable-ignore">
-          <AddNewTask section_id={section.id} />
+          <AddNewTask section_id={section.id} order={tasks.length} />
         </div>
       </div>
     </div>

@@ -8,7 +8,7 @@ const useSection = ({
   loadTasks,
   invalidateTasksState,
 }) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { form, setForm, onChange, getParams, resetForm, validate } = useForm({
     board_id: { rules: ["required"], value: section.board_id },
@@ -16,7 +16,12 @@ const useSection = ({
   });
 
   useEffect(() => {
-    loadTasks({ section_id: section.id }).then(() => setIsLoading(false));
+    const shouldLoadTasks = section.shouldLoadTasks ?? true;
+
+    if (shouldLoadTasks) {
+      setIsLoading(true);
+      loadTasks({ section_id: section.id }).then(() => setIsLoading(false));
+    }
 
     return () => {
       invalidateTasksState();

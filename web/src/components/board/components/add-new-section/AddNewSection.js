@@ -9,6 +9,7 @@ import "./AddNewSection.css";
 
 const AddNewSection = ({
   board_id,
+  order,
   createSection,
   controlText = "Add a list",
 }) => {
@@ -32,13 +33,13 @@ const AddNewSection = ({
     setForm({ ...form, isValid, errors, isSubmitted: true });
 
     if (isValid) {
-      const params = getParams();
+      const params = { ...getParams(), order };
 
-      createSection(params).then(() => {
-        setIsActive(false);
-        resetForm(true);
-      });
+      createSection(params);
+      resetForm(true);
     }
+
+    setIsActive(false);
   };
 
   return (

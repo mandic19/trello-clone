@@ -7,7 +7,7 @@ export default function sectionReducer(state = initialState.sections, action) {
     case types.LOAD_SECTIONS_SUCCESS:
       return action.sections;
     case types.CREATE_SECTION_SUCCESS:
-      return [...state, action.section];
+      return [...state, { ...action.section, shouldLoadTasks: false }];
     case types.UPDATE_SECTION_SUCCESS:
     case types.REORDER_SECTION_SUCCESS:
       const section = state.find((x) => x.id === action.section.id);

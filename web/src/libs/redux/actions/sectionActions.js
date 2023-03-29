@@ -1,5 +1,6 @@
 import * as types from "./actionTypes";
 import * as sectionApi from "../../api/sectionApi";
+import { generateUUID } from "../../helpers/uuidHelper";
 
 export function loadSectionsSuccess(sections) {
   return { type: types.LOAD_SECTIONS_SUCCESS, sections };
@@ -40,9 +41,17 @@ export function loadSections(params) {
 
 export function createSection(params) {
   return function (dispatch) {
+    const dummySection = {
+      id: generateUUID(),
+      ...params,
+    };
+
+    dispatch(createSectionSuccess(dummySection));
+
     return sectionApi
       .createSection(params)
       .then((section) => {
+        dispatch(deleteSectionSuccess(dummySection));
         dispatch(createSectionSuccess(section));
       })
       .catch((error) => {
@@ -64,16 +73,14 @@ export function updateSection(section, params) {
   };
 }
 
-export function reorderSection(id, params) {
+export function reorderSection(section, params) {
   return function (dispatch) {
-    return sectionApi
-      .reorderSection(id, params)
-      .then((section) => {
-        dispatch(reorderSectionSuccess(section));
-      })
-      .catch((error) => {
-        throw error;
-      });
+    dispatch(reorderSectionSuccess({ ...section, ...params }));
+
+    return sectionApi.reorderSection(section.id, params).catch((error) => {
+      dispatch(reorderSectionSuccess(section));
+      throw error;
+    });
   };
 }
 

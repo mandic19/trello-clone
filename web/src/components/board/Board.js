@@ -5,15 +5,24 @@ import { invalidateSectionsState } from "../../libs/redux/actions/sectionActions
 import { reorderSection } from "../../libs/redux/actions/sectionActions";
 import { reorderTask } from "../../libs/redux/actions/taskActions";
 import InputInline from "../input-inline/InputInline";
+import SortableList from "../sortable/Sortable";
 import Section from "../section/Section";
 import AddNewSection from "./components/add-new-section/AddNewSection";
 import useBoard from "./hooks/useBoard";
 import "./Board.css";
-import SortableList from "../sortable/Sortable";
 
 const Board = (props) => {
-  const { board, boardSections, form, onChange, onSubmit, onBlur } =
-    useBoard(props);
+  const {
+    board,
+    sections,
+    form,
+    onChange,
+    onSubmit,
+    onBlur,
+    onSectionDragEnd,
+  } = useBoard(props);
+
+  const sectionCnt = sections.length;
 
   return (
     <div className="board">
@@ -30,17 +39,20 @@ const Board = (props) => {
         </div>
       </div>
       <div className="body">
-        <SortableList draggable=".section-wrapper" group="section">
-          {boardSections.map((section) => (
+        <SortableList
+          draggable=".section-wrapper"
+          group="section"
+          onEnd={onSectionDragEnd}
+        >
+          {sections.map((section) => (
             <Section key={section.id} section={section} />
           ))}
         </SortableList>
         <div className="add-section-wrapper">
           <AddNewSection
             board_id={board.id}
-            controlText={
-              boardSections.length > 0 ? "Add another list" : "Add a list"
-            }
+            order={sectionCnt}
+            controlText={sectionCnt > 0 ? "Add another list" : "Add a list"}
           />
         </div>
       </div>

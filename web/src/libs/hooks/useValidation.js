@@ -35,7 +35,7 @@ const useValidation = () => {
   const required = (form, key, { message = "This field is required." }) => {
     const val = getValueByKey(form, key);
 
-    if ((typeof val === "string" && val.trim()) || val) return;
+    if ((typeof val === "string" && val.trim()) || val || val === 0) return;
 
     errors.current[key] = message;
   };

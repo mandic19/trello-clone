@@ -11,7 +11,10 @@ const SortableList = ({
 
   useEffect(() => {
     if (ref.current) {
-      Sortable.create(ref.current, { ...defaultOptions, ...props });
+      Sortable.create(ref.current, {
+        ...defaultOptions,
+        ...props,
+      });
     }
   }, [ref.current]);
 
@@ -23,6 +26,7 @@ const SortableList = ({
 };
 
 const defaultOptions = {
+  dataIdAttr: "data-id",
   filter: ".sortable-ignore",
   forceFallback: true,
 };

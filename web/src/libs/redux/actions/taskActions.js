@@ -1,5 +1,6 @@
 import * as types from "./actionTypes";
 import * as taskApi from "../../api/taskApi";
+import { generateUUID } from "../../helpers/uuidHelper";
 
 export function loadTasksSuccess(tasks) {
   return { type: types.LOAD_TASKS_SUCCESS, tasks };
@@ -40,9 +41,17 @@ export function loadTasks(params) {
 
 export function createTask(params) {
   return function (dispatch) {
+    const dummyTask = {
+      id: generateUUID(),
+      ...params,
+    };
+
+    dispatch(createTaskSuccess(dummyTask));
+
     return taskApi
       .createTask(params)
       .then((task) => {
+        dispatch(deleteTaskSuccess(dummyTask));
         dispatch(createTaskSuccess(task));
       })
       .catch((error) => {

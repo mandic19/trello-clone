@@ -7,7 +7,7 @@ import InputInline from "../../../input-inline/InputInline";
 import useForm from "../../../../libs/hooks/useForm";
 import "./AddNewTask.css";
 
-const AddNewTask = ({ section_id, createTask }) => {
+const AddNewTask = ({ section_id, order, createTask }) => {
   const { form, setForm, resetForm, onChange, getParams, validate } = useForm({
     section_id: { rules: ["required"], value: section_id },
     name: { rules: ["required"] },
@@ -25,18 +25,15 @@ const AddNewTask = ({ section_id, createTask }) => {
 
   const onBlur = () => submitForm();
 
-  const submitForm = async () => {
+  const submitForm = () => {
     const { isValid, errors } = validate(form);
     setForm({ ...form, isValid, errors, isSubmitted: true });
 
     if (isValid) {
-      const params = getParams();
-
-      await createTask(params);
-
-      resetForm(true);
+      createTask({ ...getParams(), order });
     }
 
+    resetForm(true);
     setIsActive(false);
   };
 

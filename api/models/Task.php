@@ -44,7 +44,6 @@ class Task extends ActiveRecord
             [['section_id', 'order', 'created_at', 'created_by', 'updated_at', 'updated_by', 'is_deleted'], 'integer'],
             [['description'], 'string'],
             [['name'], 'string', 'max' => 255],
-            [['order'], 'default', 'value' => $this->getNextId(), 'on' => [static::SCENARIO_CREATE]],
             [['order'], 'required', 'on' => [static::SCENARIO_REORDER]],
             [['section_id'], 'exist', 'skipOnError' => true, 'targetClass' => Section::class, 'targetAttribute' => ['section_id' => 'id']],
         ];

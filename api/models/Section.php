@@ -43,7 +43,6 @@ class Section extends ActiveRecord
             [['board_id'], 'required'],
             [['board_id', 'order', 'created_at', 'created_by', 'updated_at', 'updated_by', 'is_deleted'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['order'], 'default', 'value' => $this->getNextOrder(), 'on' => [static::SCENARIO_CREATE]],
             [['order'], 'required', 'on' => [static::SCENARIO_REORDER]],
             [['board_id'], 'exist', 'skipOnError' => true, 'targetClass' => Board::class, 'targetAttribute' => ['board_id' => 'id']],
         ];
@@ -86,10 +85,6 @@ class Section extends ActiveRecord
             static::SCENARIO_REORDER => ['order'],
             static::SCENARIO_UPDATE => ['name', 'order', 'board_id']
         ]);
-    }
-
-    private function getNextOrder() {
-        return self::find()->max('section.order') + 1;
     }
 
     /**
