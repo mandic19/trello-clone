@@ -7,9 +7,9 @@ import {
   loadTasks,
   invalidateTasksState,
 } from "../../libs/redux/actions/taskActions";
-import { Draggable, Droppable } from "react-beautiful-dnd";
 import Loader from "../loader/Loader";
 import InputInline from "../input-inline/InputInline";
+import SortableList from "../sortable/Sortable";
 import Task from "../task/Task";
 import AddNewTask from "./components/add-new-task/AddNewTask";
 import useSection from "./hooks/useSections";
@@ -20,7 +20,7 @@ const Section = (props) => {
     useSection(props);
 
   return (
-    <div className="section-wrapper">
+    <div className="section-wrapper" data-id={section.id}>
       <div className="section">
         <div className="header">
           <div className="title">
@@ -44,35 +44,15 @@ const Section = (props) => {
             <Loader size="lg" />
           </div>
         ) : (
-          <Droppable
-            droppableId={`section-droppable-${section.id}`}
-            direction="vertical"
-          >
-            {(provided, snapshot) => (
-              <div ref={provided.innerRef} className="body">
-                {tasks.map((task) => (
-                  <Draggable
-                    key={task.id}
-                    draggableId={`${task.id}`}
-                    index={parseInt(task.order)}
-                  >
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <Task task={task} />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
+          <div className="body">
+            <SortableList draggable=".task" group="task">
+              {tasks.map((task) => (
+                <Task key={task.id} task={task} />
+              ))}
+            </SortableList>
+          </div>
         )}
-        <div className="footer">
+        <div className="footer sortable-ignore">
           <AddNewTask section_id={section.id} />
         </div>
       </div>

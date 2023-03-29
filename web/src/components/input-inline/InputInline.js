@@ -32,7 +32,12 @@ const InputInline = ({
   }, [value]);
 
   useEffect(() => {
-    if (!isMounted.current || isInFocus) return;
+    if (!isMounted.current) return;
+
+    if (isInFocus) {
+      inputRef.current.focus();
+      return;
+    }
 
     if (typeof onBlur === "function") {
       onBlur();
@@ -51,7 +56,17 @@ const InputInline = ({
   }, [formRef]);
 
   const outOfFocusHandler = (e) => {
-    setIsInFocus(formRef.current && formRef.current.contains(e.target));
+    const isOutOfFocus = !(
+      formRef.current && formRef.current.contains(e.target)
+    );
+
+    if (isOutOfFocus) {
+      setIsInFocus(false);
+    }
+  };
+
+  const onMouseUpHandler = () => {
+    setIsInFocus(true);
   };
 
   const wrapperClassName = `${styles.wrapper} ${className ? className : ""}`;
@@ -75,6 +90,7 @@ const InputInline = ({
       onKeyDown: handleOnKeyDown,
       className: styles.input,
       value: inputValue,
+      disabled: !isInFocus,
       ...props,
     };
 
@@ -87,7 +103,7 @@ const InputInline = ({
 
   return (
     <form ref={formRef} onSubmit={onSubmit}>
-      <div className={wrapperClassName}>
+      <div className={wrapperClassName} onMouseUp={onMouseUpHandler}>
         {isTextarea ? (
           <textarea {...getInputProps()} />
         ) : (

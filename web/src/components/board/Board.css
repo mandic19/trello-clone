@@ -22,6 +22,7 @@
   overflow: auto hidden;
   height: calc(100% - 10rem);
   padding: 0 1.6rem 3.9rem;
+  white-space: nowrap;
 }
 
 .add-section-wrapper {

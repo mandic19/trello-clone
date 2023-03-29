@@ -1,12 +1,13 @@
 .section-wrapper {
   box-sizing: border-box;
   display: inline-block;
-  height: 100%;
   margin: 0 0.4rem;
   vertical-align: top;
   white-space: nowrap;
   min-width: 27.2rem;
   max-width: 27.2rem;
+  border-radius: 3px;
+  max-height: 100%;
 }
 
 .section-wrapper > .section {
@@ -15,16 +16,16 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  max-height: 100%;
   position: relative;
   white-space: normal;
   width: 100%;
+  max-height: calc(100vh - 14rem);
 }
 
 .section-wrapper > .section > .header {
   display: flex;
   align-items: center;
-  min-height: 2rem;
+  min-height: 3.6rem;
   padding: 0.6rem 0.8rem;
   position: relative;
 }

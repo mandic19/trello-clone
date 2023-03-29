@@ -6,22 +6,14 @@ import { reorderSection } from "../../libs/redux/actions/sectionActions";
 import { reorderTask } from "../../libs/redux/actions/taskActions";
 import InputInline from "../input-inline/InputInline";
 import Section from "../section/Section";
+import AddNewSection from "./components/add-new-section/AddNewSection";
 import useBoard from "./hooks/useBoard";
 import "./Board.css";
-import AddNewSection from "./components/add-new-section/AddNewSection";
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import SortableList from "../sortable/Sortable";
 
 const Board = (props) => {
-  const {
-    board,
-    boardSections,
-    form,
-    onChange,
-    onSubmit,
-    onBlur,
-    onSectionDragEnd,
-    onTaskDragEnd,
-  } = useBoard(props);
+  const { board, boardSections, form, onChange, onSubmit, onBlur } =
+    useBoard(props);
 
   return (
     <div className="board">
@@ -37,52 +29,21 @@ const Board = (props) => {
           />
         </div>
       </div>
-      <DragDropContext onDragEnd={onSectionDragEnd}>
-        <Droppable
-          droppableId={`board-droppable-${board.id}`}
-          direction="horizontal"
-        >
-          {(provided, snapshot) => (
-            <div
-              ref={provided.innerRef}
-              // style={getListStyle(snapshot.isDraggingOver)}
-              className="body"
-            >
-              <DragDropContext onDragEnd={onTaskDragEnd}>
-                {boardSections.map((section) => (
-                  <Draggable
-                    key={section.id}
-                    draggableId={`${section.id}`}
-                    index={parseInt(section.order)}
-                  >
-                    {(provided, snapshot) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                      >
-                        <Section
-                          section={section}
-                          isDragging={snapshot.isDragging}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-              </DragDropContext>
-              {provided.placeholder}
-              <div className="add-section-wrapper">
-                <AddNewSection
-                  board_id={board.id}
-                  controlText={
-                    boardSections.length > 0 ? "Add another list" : "Add a list"
-                  }
-                />
-              </div>
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <div className="body">
+        <SortableList draggable=".section-wrapper" group="section">
+          {boardSections.map((section) => (
+            <Section key={section.id} section={section} />
+          ))}
+        </SortableList>
+        <div className="add-section-wrapper">
+          <AddNewSection
+            board_id={board.id}
+            controlText={
+              boardSections.length > 0 ? "Add another list" : "Add a list"
+            }
+          />
+        </div>
+      </div>
     </div>
   );
 };

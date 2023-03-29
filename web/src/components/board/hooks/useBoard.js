@@ -56,7 +56,7 @@ const useBoard = ({
   };
 
   const onSectionDragEnd = (res) => {
-    console.log(res);
+
     // dropped outside the list
     if (!res.destination) {
       return;

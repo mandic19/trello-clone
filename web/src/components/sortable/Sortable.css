@@ -1,0 +1,14 @@
+.sortable-ghost {
+  opacity: 0.3;
+  overflow: hidden;
+  background-color: var(--deep-blue)!important;
+}
+
+.sortable-ghost * {
+  visibility: hidden;
+}
+
+.sortable-drag {
+  transform: rotate(4deg);
+  opacity: 1!important;
+}
