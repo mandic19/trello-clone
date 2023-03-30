@@ -18,6 +18,7 @@ const InputInline = ({
   isTextarea = false,
   showSubmit = false,
   submitText = "Submit",
+  group = "any",
   ...props
 }) => {
   const isMounted = useRef(false);
@@ -49,9 +50,14 @@ const InputInline = ({
   }, []);
 
   useEffect(() => {
-    document.addEventListener("mousedown", outOfFocusHandler);
+    const initEventName = `input-inline-init-${group}`;
+    document.dispatchEvent(new Event(initEventName));
+
+    document.addEventListener("mouseup", outOfFocusHandler);
+    document.addEventListener(initEventName, onInitHandler);
     return () => {
-      document.removeEventListener("mousedown", outOfFocusHandler);
+      document.removeEventListener("mouseup", outOfFocusHandler);
+      document.removeEventListener(initEventName, onInitHandler);
     };
   }, [formRef]);
 
@@ -66,10 +72,15 @@ const InputInline = ({
   };
 
   const onMouseUpHandler = () => {
+    console.log("mouse up");
     setIsInFocus(true);
   };
 
-  const wrapperClassName = `${styles.wrapper} ${className ? className : ""}`;
+  const onInitHandler = () => setIsInFocus(false);
+
+  const wrapperClassName = `${
+    isInFocus ? styles.wrapperFocused : styles.wrapper
+  } ${className ? className : ""}`;
 
   const handleOnChange = (e) => {
     setInputValue(e.target.value);
@@ -90,7 +101,7 @@ const InputInline = ({
       onKeyDown: handleOnKeyDown,
       className: styles.input,
       value: inputValue,
-      disabled: !isInFocus,
+      readOnly: !isInFocus,
       ...props,
     };
 
