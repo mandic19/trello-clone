@@ -71,11 +71,7 @@ const InputInline = ({
     }
   };
 
-  const onMouseUpHandler = () => {
-    console.log("mouse up");
-    setIsInFocus(true);
-  };
-
+  const onMouseUpHandler = () => setIsInFocus(true);
   const onFocusOutHandler = () => setIsInFocus(false);
 
   const wrapperClassName = `${
