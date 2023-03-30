@@ -54,10 +54,10 @@ const InputInline = ({
     document.dispatchEvent(new Event(initEventName));
 
     document.addEventListener("mouseup", outOfFocusHandler);
-    document.addEventListener(initEventName, onInitHandler);
+    document.addEventListener(initEventName, onFocusOutHandler);
     return () => {
       document.removeEventListener("mouseup", outOfFocusHandler);
-      document.removeEventListener(initEventName, onInitHandler);
+      document.removeEventListener(initEventName, onFocusOutHandler);
     };
   }, [formRef]);
 
@@ -76,7 +76,7 @@ const InputInline = ({
     setIsInFocus(true);
   };
 
-  const onInitHandler = () => setIsInFocus(false);
+  const onFocusOutHandler = () => setIsInFocus(false);
 
   const wrapperClassName = `${
     isInFocus ? styles.wrapperFocused : styles.wrapper
@@ -102,6 +102,7 @@ const InputInline = ({
       className: styles.input,
       value: inputValue,
       readOnly: !isInFocus,
+      onBlur: onFocusOutHandler,
       ...props,
     };
 
