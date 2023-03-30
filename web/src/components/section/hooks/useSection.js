@@ -5,6 +5,7 @@ const useSection = ({
   section,
   tasks,
   updateSection,
+  deleteSection,
   loadTasks,
   invalidateTasksState,
   reorderTask,
@@ -64,6 +65,12 @@ const useSection = ({
     setForm({ ...form, isValid, errors, isSubmitted: true });
   };
 
+  const getHamburgerMenuOptions = () => {
+    return [
+      { content: "Archive this list", onClick: () => deleteSection(section) },
+    ];
+  };
+
   return {
     section,
     tasks,
@@ -73,6 +80,7 @@ const useSection = ({
     onSubmit,
     onBlur,
     onTaskDragEnd,
+    getHamburgerMenuOptions,
   };
 };
 

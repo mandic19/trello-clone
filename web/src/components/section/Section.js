@@ -2,7 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { updateSection } from "../../libs/redux/actions/sectionActions";
+import {
+  updateSection,
+  deleteSection,
+} from "../../libs/redux/actions/sectionActions";
 import {
   loadTasks,
   reorderTask,
@@ -11,9 +14,10 @@ import {
 import Loader from "../loader/Loader";
 import InputInline from "../input-inline/InputInline";
 import SortableList from "../sortable/SortableList";
+import Dropdown from "../dropdown/Dropdown";
 import Task from "../task/Task";
 import AddNewTask from "./components/add-new-task/AddNewTask";
-import useSection from "./hooks/useSections";
+import useSection from "./hooks/useSection";
 import "./Section.css";
 
 const Section = (props) => {
@@ -26,6 +30,7 @@ const Section = (props) => {
     onSubmit,
     onBlur,
     onTaskDragEnd,
+    getHamburgerMenuOptions,
   } = useSection(props);
 
   const className = `section-wrapper ${
@@ -46,11 +51,13 @@ const Section = (props) => {
               className="px-1 d-flex"
             />
           </div>
-          <div className="burger-menu">
-            <button className="btn btn-neutral btn-icon-only">
-              <FontAwesomeIcon icon={faEllipsis} />
-            </button>
-          </div>
+          <Dropdown items={getHamburgerMenuOptions()}>
+            <div className="burger-menu sortable-ignore">
+              <button className="btn btn-neutral btn-icon-only">
+                <FontAwesomeIcon icon={faEllipsis} />
+              </button>
+            </div>
+          </Dropdown>
         </div>
         {isLoading ? (
           <div className="loading">
@@ -89,6 +96,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = {
   updateSection,
+  deleteSection,
   loadTasks,
   reorderTask,
   invalidateTasksState,

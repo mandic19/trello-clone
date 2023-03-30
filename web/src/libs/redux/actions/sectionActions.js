@@ -88,13 +88,11 @@ export function reorderSection(id, params) {
 
 export function deleteSection(section, params) {
   return function (dispatch) {
-    return sectionApi
-      .deleteSection(section.id, params)
-      .then(() => {
-        dispatch(deleteSectionSuccess(section));
-      })
-      .catch((error) => {
-        throw error;
-      });
+    dispatch(deleteSectionSuccess(section));
+
+    return sectionApi.deleteSection(section.id, params).catch((error) => {
+      dispatch(createSectionSuccess(section));
+      throw error;
+    });
   };
 }
