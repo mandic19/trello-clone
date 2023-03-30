@@ -7,6 +7,7 @@ const useSection = ({
   updateSection,
   loadTasks,
   invalidateTasksState,
+  reorderTask,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,13 +29,24 @@ const useSection = ({
     };
   }, []);
 
+  const onTaskDragEnd = ({ from, to, item, oldIndex, newIndex }) => {
+    const oldSectionId = parseInt(from.dataset.id);
+    const newSectionId = parseInt(to.dataset.id);
+
+    if (oldIndex === newIndex && oldSectionId === newSectionId) return;
+
+    const taskId = parseInt(item.dataset.id);
+
+    reorderTask(taskId, { order: newIndex, section_id: newSectionId });
+  };
+
+  const onBlur = () => submitForm();
+
   const onSubmit = (e) => {
     e.preventDefault();
 
     submitForm();
   };
-
-  const onBlur = () => submitForm();
 
   const submitForm = () => {
     const { isValid, errors } = validate(form);
@@ -60,6 +72,7 @@ const useSection = ({
     onChange,
     onSubmit,
     onBlur,
+    onTaskDragEnd,
   };
 };
 

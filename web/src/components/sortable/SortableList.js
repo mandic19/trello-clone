@@ -5,6 +5,7 @@ import "./SortableList.css";
 const SortableList = ({
   children,
   className = "sortable-container",
+  options = {},
   ...props
 }) => {
   const ref = useRef(null);
@@ -14,7 +15,7 @@ const SortableList = ({
     if (ref.current) {
       sortable.current = Sortable.create(ref.current, {
         ...defaultOptions,
-        ...props,
+        ...options,
       });
     }
 
@@ -24,7 +25,7 @@ const SortableList = ({
   }, [ref.current]);
 
   return (
-    <div className={className} ref={ref}>
+    <div className={className} {...props} ref={ref}>
       {children}
     </div>
   );
@@ -33,7 +34,9 @@ const SortableList = ({
 const defaultOptions = {
   filter: ".sortable-ignore",
   forceFallback: true,
-  emptyInsertThreshold: 100,
+  onAdd: (evt) => {
+    evt.from.insertBefore(evt.item, null);
+  },
 };
 
 export default SortableList;

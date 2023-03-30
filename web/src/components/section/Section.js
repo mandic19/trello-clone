@@ -5,22 +5,35 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { updateSection } from "../../libs/redux/actions/sectionActions";
 import {
   loadTasks,
+  reorderTask,
   invalidateTasksState,
 } from "../../libs/redux/actions/taskActions";
 import Loader from "../loader/Loader";
 import InputInline from "../input-inline/InputInline";
-import SortableList from "../sortable/Sortable";
+import SortableList from "../sortable/SortableList";
 import Task from "../task/Task";
 import AddNewTask from "./components/add-new-task/AddNewTask";
 import useSection from "./hooks/useSections";
 import "./Section.css";
 
 const Section = (props) => {
-  const { section, tasks, form, isLoading, onChange, onSubmit, onBlur } =
-    useSection(props);
+  const {
+    section,
+    tasks,
+    form,
+    isLoading,
+    onChange,
+    onSubmit,
+    onBlur,
+    onTaskDragEnd,
+  } = useSection(props);
+
+  const className = `section-wrapper ${
+    section.isDummyModel ? "sortable-ignore" : ""
+  }`;
 
   return (
-    <div className="section-wrapper" data-id={section.id}>
+    <div className={className} data-id={section.id}>
       <div className="section">
         <div className="header">
           <div className="title">
@@ -45,7 +58,15 @@ const Section = (props) => {
           </div>
         ) : (
           <div className="body">
-            <SortableList draggable=".task" group="task">
+            <SortableList
+              data-id={section.id}
+              className="task-container"
+              options={{
+                draggable: ".task",
+                group: "task",
+                onEnd: onTaskDragEnd,
+              }}
+            >
               {tasks.map((task) => (
                 <Task key={task.id} task={task} />
               ))}
@@ -69,6 +90,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = {
   updateSection,
   loadTasks,
+  reorderTask,
   invalidateTasksState,
 };
 

@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 class TaskReorderForm extends Task
 {
     private $oldOrder;
+    private $oldSectionId;
 
     /**
      * {@inheritdoc}
@@ -27,6 +28,8 @@ class TaskReorderForm extends Task
         $transaction = \Yii::$app->db->beginTransaction();
 
         $this->oldOrder = $this->getOldAttribute('order');
+        $this->oldSectionId = $this->getOldAttribute('section_id');
+
         if (!parent::save($runValidation, $attributeNames)) {
             $transaction->rollBack();
             return false;
@@ -43,16 +46,25 @@ class TaskReorderForm extends Task
 
     protected function updateOrderHierarchy()
     {
-        list($inc, $bottomLimit, $topLimit) = ReorderHelper::getParameters($this->oldOrder, $this->order);
+        $newOrder = intval($this->order);
 
-        Task::updateAll(
-            ['order' => new Expression("IFNULL(`order`, 0) + {$inc}")],
-            [
-                'AND',
-                ['BETWEEN', new Expression('IFNULL(`order`, 0)'), $bottomLimit, $topLimit],
-                ['!=', 'id', $this->id]
-            ]
-        );
+        $orderExpression = new Expression('IFNULL(`order`, 0)');
+        $conditions = [
+            'AND',
+            ['section_id' => $this->section_id],
+            ['!=', 'id', $this->id]
+        ];
+
+        if($this->oldSectionId != $this->section_id){
+            $inc = 1;
+            $conditions = ArrayHelper::merge($conditions, [['>=', $orderExpression, $newOrder]]);
+        }
+        else{
+            list($inc, $bottomLimit, $topLimit) = ReorderHelper::getParameters($this->oldOrder, $newOrder);
+            $conditions = ArrayHelper::merge($conditions, [['BETWEEN', $orderExpression, $bottomLimit, $topLimit]]);
+        }
+
+        Task::updateAll(['order' => new Expression("IFNULL(`order`, 0) + {$inc}")], $conditions);
         return true;
     }
 }

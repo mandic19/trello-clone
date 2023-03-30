@@ -1,6 +1,6 @@
 import initialState from "./initialState";
 import * as types from "../actions/actionTypes";
-import * as reoderHelper from "../../helpers/reoderHelper";
+import * as reorderHelper from "../../helpers/reorderHelper";
 
 export default function sectionReducer(state = initialState.sections, action) {
   switch (action.type) {
@@ -9,10 +9,13 @@ export default function sectionReducer(state = initialState.sections, action) {
     case types.CREATE_SECTION_SUCCESS:
       return [...state, { ...action.section, shouldLoadTasks: false }];
     case types.UPDATE_SECTION_SUCCESS:
+      return state.map((section) =>
+        section.id !== action.section.id ? section : action.section
+      );
     case types.REORDER_SECTION_SUCCESS:
       const section = state.find((x) => x.id === action.section.id);
 
-      const { increment, bottomLimit, topLimit } = reoderHelper.getParams(
+      const { increment, bottomLimit, topLimit } = reorderHelper.getParams(
         section.order,
         action.section.order
       );

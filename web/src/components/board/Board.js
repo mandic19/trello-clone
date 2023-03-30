@@ -3,9 +3,8 @@ import { connect } from "react-redux";
 import { updateBoard } from "../../libs/redux/actions/boardActions";
 import { invalidateSectionsState } from "../../libs/redux/actions/sectionActions";
 import { reorderSection } from "../../libs/redux/actions/sectionActions";
-import { reorderTask } from "../../libs/redux/actions/taskActions";
 import InputInline from "../input-inline/InputInline";
-import SortableList from "../sortable/Sortable";
+import SortableList from "../sortable/SortableList";
 import Section from "../section/Section";
 import AddNewSection from "./components/add-new-section/AddNewSection";
 import useBoard from "./hooks/useBoard";
@@ -40,9 +39,12 @@ const Board = (props) => {
       </div>
       <div className="body">
         <SortableList
-          draggable=".section-wrapper"
-          group="section"
-          onEnd={onSectionDragEnd}
+          className="section-container"
+          options={{
+            draggable: ".section-wrapper",
+            group: "section",
+            onEnd: onSectionDragEnd,
+          }}
         >
           {sections.map((section) => (
             <Section key={section.id} section={section} />
@@ -69,7 +71,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   updateBoard,
   reorderSection,
-  reorderTask,
   invalidateSectionsState,
 };
 

@@ -7,7 +7,6 @@ const useBoard = ({
   sections,
   updateBoard,
   reorderSection,
-  reorderTask,
   invalidateSectionsState,
 }) => {
   const isMounted = useRef(false);
@@ -49,34 +48,7 @@ const useBoard = ({
     if (oldIndex === newIndex) return;
 
     const sectionId = parseInt(item.dataset.id);
-    const section = sections.find((x) => x.id === sectionId);
-
-    if (section) {
-      reorderSection(section, { order: newIndex });
-    }
-  };
-
-  const onTaskDragEnd = (res) => {
-    // dropped outside the list
-    if (!res.destination) {
-      return;
-    }
-
-    const { destination, source, draggableId } = res;
-
-    if (
-      source.index === destination.index &&
-      source.droppableId === destination.droppableId
-    )
-      return;
-
-    const taskId = parseInt(draggableId);
-    const order = destination.index;
-    const section_id = parseInt(
-      destination.droppableId.replace("section-droppable-", "")
-    );
-
-    reorderTask(taskId, { order, section_id });
+    reorderSection(sectionId, { order: newIndex });
   };
 
   return {
@@ -87,7 +59,6 @@ const useBoard = ({
     onSubmit,
     onBlur,
     onSectionDragEnd,
-    onTaskDragEnd,
   };
 };
 

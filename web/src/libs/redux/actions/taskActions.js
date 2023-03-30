@@ -43,6 +43,7 @@ export function createTask(params) {
   return function (dispatch) {
     const dummyTask = {
       id: generateUUID(),
+      isDummyModel: true,
       ...params,
     };
 
@@ -74,15 +75,15 @@ export function updateTask(task, params) {
 }
 
 export function reorderTask(id, params) {
-  return function (dispatch) {
-    return taskApi
-      .reorderTask(id, params)
-      .then((task) => {
-        dispatch(reorderTaskSuccess(task));
-      })
-      .catch((error) => {
-        throw error;
-      });
+  return function (dispatch, getState) {
+    const task = getState().tasks.find((x) => x.id === id);
+
+    dispatch(reorderTaskSuccess({ ...task, ...params }));
+
+    return taskApi.reorderTask(id, params).catch((error) => {
+      dispatch(reorderTaskSuccess(task));
+      throw error;
+    });
   };
 }
 

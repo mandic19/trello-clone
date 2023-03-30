@@ -43,6 +43,7 @@ export function createSection(params) {
   return function (dispatch) {
     const dummySection = {
       id: generateUUID(),
+      isDummyModel: true,
       ...params,
     };
 
@@ -73,11 +74,12 @@ export function updateSection(section, params) {
   };
 }
 
-export function reorderSection(section, params) {
-  return function (dispatch) {
+export function reorderSection(id, params) {
+  return function (dispatch, getState) {
+    const section = getState().sections.find((x) => x.id === id);
     dispatch(reorderSectionSuccess({ ...section, ...params }));
 
-    return sectionApi.reorderSection(section.id, params).catch((error) => {
+    return sectionApi.reorderSection(id, params).catch((error) => {
       dispatch(reorderSectionSuccess(section));
       throw error;
     });
