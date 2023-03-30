@@ -86,7 +86,7 @@ const InputInline = ({
   const handleOnKeyDown = (e) => {
     if (e.which === ENTER_KEY) {
       onSubmit(e);
-      inputRef.current.blur();
+      setIsInFocus(false);
     }
   };
 
@@ -98,7 +98,6 @@ const InputInline = ({
       className: styles.input,
       value: inputValue,
       readOnly: !isInFocus,
-      onBlur: onFocusOutHandler,
       ...props,
     };
 
