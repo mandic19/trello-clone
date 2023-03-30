@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Sortable from "sortablejs";
-import "./Sortable.css";
+import "./SortableList.css";
 
 const SortableList = ({
   children,
@@ -8,14 +8,19 @@ const SortableList = ({
   ...props
 }) => {
   const ref = useRef(null);
+  const sortable = useRef(null);
 
   useEffect(() => {
     if (ref.current) {
-      Sortable.create(ref.current, {
+      sortable.current = Sortable.create(ref.current, {
         ...defaultOptions,
         ...props,
       });
     }
+
+    return () => {
+      sortable.current.destroy();
+    };
   }, [ref.current]);
 
   return (
@@ -26,9 +31,9 @@ const SortableList = ({
 };
 
 const defaultOptions = {
-  dataIdAttr: "data-id",
   filter: ".sortable-ignore",
   forceFallback: true,
+  emptyInsertThreshold: 100,
 };
 
 export default SortableList;
