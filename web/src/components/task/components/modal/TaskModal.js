@@ -1,7 +1,10 @@
 import React from "react";
 import Modal from "react-modal";
 import { connect } from "react-redux";
-import { updateTask } from "../../../../libs/redux/actions/taskActions";
+import {
+  updateTask,
+  deleteTask,
+} from "../../../../libs/redux/actions/taskActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
@@ -27,7 +30,14 @@ import "./TaskModal.css";
 
 Modal.setAppElement("#root");
 
-const TaskModal = ({ task, section, isOpen, onClose, updateTask }) => {
+const TaskModal = ({
+  task,
+  section,
+  isOpen,
+  onClose,
+  updateTask,
+  deleteTask,
+}) => {
   const { form, setForm, onChange, getParams, resetForm, validate } = useForm({
     name: {
       rules: [
@@ -66,6 +76,11 @@ const TaskModal = ({ task, section, isOpen, onClose, updateTask }) => {
     }
 
     setForm({ ...form, isValid, errors, isSubmitted: true });
+  };
+
+  const onDelete = () => {
+    onClose();
+    deleteTask(task);
   };
 
   return (
@@ -245,7 +260,7 @@ const TaskModal = ({ task, section, isOpen, onClose, updateTask }) => {
                 </button>
               </div>
               <div className="item">
-                <button className="btn btn-secondary" disabled={true}>
+                <button className="btn btn-secondary" onClick={onDelete}>
                   <FontAwesomeIcon
                     icon={faBoxArchive}
                     className="mr-1"
@@ -280,6 +295,7 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = {
   updateTask,
+  deleteTask,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskModal);
