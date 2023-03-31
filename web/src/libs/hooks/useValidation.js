@@ -59,7 +59,7 @@ const useValidation = () => {
     { max = 0, message = `This field exceeds max length of ${max} characters.` }
   ) => {
     const value = getValueByKey(form, key);
-    const length = value.length;
+    const length = value ? value.length : 0;
 
     if (max < length) {
       errors.current[key] = message;
