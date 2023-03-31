@@ -28,3 +28,38 @@ body,
   background-size: 40rem;
   background-position: left bottom, right bottom;
 }
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: auto;
+  bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  min-height: 60rem;
+  max-width: 72rem;
+  outline: unset;
+  background-color: #f4f5f7;
+  border-radius: 3px;
+  padding: 1.6rem 2.4rem;
+}
+
+.modal-overlay {
+  background-color: #000000a3;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.modal > .close {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1.6rem;
+}
+
+.modal > .close:hover > svg {
+  color: var(--deep-blue);
+}

@@ -44,7 +44,7 @@
   box-shadow: var(--ds-shadow-raised, 0 1px 0 #091e4240);
   color: var(--ds-text, inherit);
   padding: 0.6rem 0.8rem;
-  width: 100%;
+  width: 97%;
   cursor: pointer;
   display: block;
   resize: none;
@@ -54,6 +54,7 @@
   font-size: inherit;
   font-weight: inherit;
   line-height: inherit;
+  max-height: 58rem;
 }
 
 .ghost {

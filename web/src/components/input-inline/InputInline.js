@@ -55,6 +55,8 @@ const InputInline = ({
 
     document.addEventListener("mouseup", outOfFocusHandler);
     document.addEventListener(initEventName, onFocusOutHandler);
+
+    normalizeTextareaHeight();
     return () => {
       document.removeEventListener("mouseup", outOfFocusHandler);
       document.removeEventListener(initEventName, onFocusOutHandler);
@@ -87,12 +89,18 @@ const InputInline = ({
   const wrapperClassName = wrapperClassList.join(" ");
 
   const handleOnChange = (e) => {
+    normalizeTextareaHeight();
     setInputValue(e.target.value);
     onChange(e);
   };
 
   const handleOnKeyDown = (e) => {
-    if (e.which === ENTER_KEY) {
+    if (e.which !== ENTER_KEY) return;
+
+    if (e.ctrlKey) {
+      inputRef.current.value += "\n";
+      handleOnChange(e);
+    } else {
       onSubmit(e);
       setIsInFocus(false);
     }
@@ -114,6 +122,13 @@ const InputInline = ({
     }
 
     return inputProps;
+  };
+
+  const normalizeTextareaHeight = () => {
+    if (isTextarea) {
+      inputRef.current.style.height = "inherit";
+      inputRef.current.style.height = `${inputRef.current.scrollHeight}px`;
+    }
   };
 
   return (

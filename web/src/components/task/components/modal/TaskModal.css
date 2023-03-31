@@ -1,0 +1,68 @@
+.task-modal > .header {
+  display: flex;
+  align-items: top;
+}
+
+.task-modal > .header > .icon {
+  margin-top: 0.6rem;
+  margin-right: 0.8rem;
+}
+
+.task-modal > .header > .title {
+  width: 90%;
+}
+
+.task-modal .title {
+  font-size: 20px;
+}
+
+.task-modal > .header > .title > .subtitle {
+  padding: 0 1.2rem;
+  font-size: 14px;
+  color: #5e6c84;
+}
+
+.task-modal > .body > .content {
+  width: 60rem;
+  padding: 4rem 0;
+}
+
+.task-modal > .body {
+  display: flex;
+}
+
+.task-modal > .body > .sidebar {
+  width: calc(100% - 54rem);
+}
+
+.group {
+  margin-top: 1.6rem;
+}
+
+.group > .label {
+  color: #5e6c84;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.6rem;
+  margin-top: 16px;
+  margin: 0;
+}
+
+.group > .label,
+.group > .item {
+  padding: 0.4rem 0;
+}
+
+.group > .item > .btn {
+  text-align: left;
+  width: 100%;
+}
+
+.task-modal .description {
+  margin-left: 2.2rem;
+  width: 85%;
+}
+
+.task-modal .description .wrapper {
+  width: 100%;
+}

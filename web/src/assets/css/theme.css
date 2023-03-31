@@ -6,6 +6,8 @@
 
   --button-primary: #026AA7;
   --button-primary-hovered: #025a8d;
+  --button-secondary: #091e420a;
+  --button-secondary-hovered: #091e4214;
   --button-transparent: transparent;
   --button-transparent-hovered: rgba(0, 0, 0, 0.2);
   --button-neutral-hovered: rgba(0, 0, 0, 0.1);
@@ -44,6 +46,14 @@
   background-color: var(--button-primary-hovered);
 }
 
+.btn.btn-secondary {
+  background-color: var(--button-secondary);
+}
+
+.btn.btn-secondary:hover {
+  background-color: var(--button-secondary-hovered);
+}
+
 .btn.btn-transparent, .btn.btn-neutral {
   background-color: var(--button-transparent);
 }
@@ -67,6 +77,11 @@
 
 .btn.btn-link:hover {
   color: var(--text-primary);
+}
+
+.btn[disabled] {
+  pointer-events: none;
+  opacity: 0.8;
 }
 
 /********** BUTTONS ***********/
@@ -451,3 +466,6 @@
 
 /********** DISPLAY ***********/
 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+}
