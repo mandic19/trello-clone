@@ -85,7 +85,7 @@ class Task extends ActiveRecord
     {
         return array_merge(parent::scenarios(), [
             static::SCENARIO_REORDER => ['order', 'section_id'],
-            static::SCENARIO_UPDATE => ['name', 'order', 'board_id']
+            static::SCENARIO_UPDATE => ['name', 'order', 'description', 'board_id']
         ]);
     }
 
