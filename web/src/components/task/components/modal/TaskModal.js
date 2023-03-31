@@ -54,6 +54,7 @@ const TaskModal = ({
     },
   });
 
+
   const onBlur = () => submitForm();
 
   const onSubmit = (e) => {
@@ -130,7 +131,7 @@ const TaskModal = ({
                   placeholder="Add a more detailed desription..."
                   className="desc-wrapper"
                   rows={3}
-                  value={form.fields.description.value}
+                  value={form.fields.description.value ?? ""}
                 />
               </div>
             </div>
