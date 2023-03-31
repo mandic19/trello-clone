@@ -48,7 +48,15 @@ const ContextMenu = ({ title, options = [], onClose }) => {
                   <div
                     key={value}
                     className={styles.groupItem}
-                    onClick={onClick}
+                    onClick={(e) => {
+                      if (
+                        typeof onClose === "function" &&
+                        typeof onClick === "function"
+                      ) {
+                        onClose(e);
+                        onClick(e);
+                      }
+                    }}
                     disabled={typeof onClick !== "function"}
                   >
                     {label}
