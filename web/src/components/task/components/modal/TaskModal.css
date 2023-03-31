@@ -61,8 +61,10 @@
 .task-modal .description {
   margin-left: 2.2rem;
   width: 85%;
+  line-height: 20px;
 }
 
-.task-modal .description .wrapper {
+.task-modal .desc-wrapper {
   width: 100%;
+  line-height: 2rem;
 }

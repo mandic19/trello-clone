@@ -98,7 +98,14 @@ const InputInline = ({
     if (e.which !== ENTER_KEY) return;
 
     if (e.ctrlKey) {
-      inputRef.current.value += "\n";
+      const position = inputRef.current.selectionEnd;
+
+      inputRef.current.value =
+        inputRef.current.value.substring(0, position) +
+        "\n" +
+        inputRef.current.value.substring(position);
+      inputRef.current.selectionEnd = position + 1;
+
       handleOnChange(e);
     } else {
       onSubmit(e);

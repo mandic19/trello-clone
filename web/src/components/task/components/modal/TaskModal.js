@@ -113,7 +113,7 @@ const TaskModal = ({ task, section, isOpen, onClose, updateTask }) => {
                   autoWidth={false}
                   initialIsInFocus={true}
                   placeholder="Add a more detailed desription..."
-                  className="wrapper"
+                  className="desc-wrapper"
                   rows={3}
                   value={form.fields.description.value}
                 />
