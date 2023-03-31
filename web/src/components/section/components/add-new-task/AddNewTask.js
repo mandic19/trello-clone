@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -7,7 +7,13 @@ import InputInline from "../../../input-inline/InputInline";
 import useForm from "../../../../libs/hooks/useForm";
 import "./AddNewTask.css";
 
-const AddNewTask = ({ section_id, order, createTask, override = null }) => {
+const AddNewTask = ({
+  section_id,
+  order,
+  createTask,
+  isActiveOverride,
+  onCancelCallback,
+}) => {
   const { form, setForm, resetForm, onChange, getParams, validate } = useForm({
     section_id: { rules: ["required"], value: section_id },
     name: { rules: ["required"] },
@@ -15,27 +21,32 @@ const AddNewTask = ({ section_id, order, createTask, override = null }) => {
 
   const [isActive, setIsActive] = useState(false);
 
-  useEffect(() => {
-    if (!override) return;
-
-    setIsActive(override.value);
-  }, [override]);
+  const isMounted = useRef(false);
 
   useEffect(() => {
-    if (!override) return;
+    if (isMounted.current) {
+      setIsActive(isActiveOverride);
+    }
+  }, [isActiveOverride]);
 
-    override.set(isActive);
-  }, [isActive]);
+  useEffect(() => {
+    isMounted.current = true;
+  }, []);
 
-  const onCancel = () => setIsActive(false);
+  const onClick = () => setIsActive((prev) => !prev);
+
+  const onCancel = () => {
+    setIsActive(false);
+    onCancelCallback();
+  };
+
+  const onBlur = () => submitForm();
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     submitForm();
   };
-
-  const onBlur = () => submitForm();
 
   const submitForm = () => {
     const { isValid, errors } = validate(form);
@@ -46,7 +57,7 @@ const AddNewTask = ({ section_id, order, createTask, override = null }) => {
     }
 
     resetForm(true);
-    setIsActive(false);
+    onCancel();
   };
 
   return (
@@ -69,10 +80,7 @@ const AddNewTask = ({ section_id, order, createTask, override = null }) => {
           rows={3}
         />
       ) : (
-        <button
-          className="btn btn-neutral"
-          onClick={() => setIsActive((prev) => !prev)}
-        >
+        <button className="btn btn-neutral" onClick={onClick}>
           <FontAwesomeIcon icon={faPlus} className="mr-2" />
           Add a card
         </button>

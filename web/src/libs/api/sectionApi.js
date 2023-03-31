@@ -44,3 +44,10 @@ export function deleteSection(id, params) {
     .then(handleResponse)
     .catch(handleError);
 }
+
+export function deleteTasks(id, params) {
+  return axios
+    .delete(`${baseUrl}/${id}/tasks`, params)
+    .then(handleResponse)
+    .catch(handleError);
+}

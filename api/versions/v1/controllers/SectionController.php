@@ -7,6 +7,7 @@ use api\components\web\BaseApiController;
 use api\models\forms\SectionReorderForm;
 use app\models\search\SectionSearch;
 use app\models\Section;
+use app\models\Task;
 use yii\helpers\ArrayHelper;
 
 class SectionController extends BaseApiController
@@ -14,7 +15,7 @@ class SectionController extends BaseApiController
     public $modelClass = Section::class;
     public $searchModelClass = SectionSearch::class;
 
-    public $guestActions = ['index', 'view', 'create', 'update', 'delete', 'reorder'];
+    public $guestActions = ['index', 'view', 'create', 'update', 'delete', 'reorder', 'delete-tasks'];
 
     /**
      * @return array the access rules
@@ -38,5 +39,10 @@ class SectionController extends BaseApiController
                 'scenario' => Section::SCENARIO_REORDER,
             ],
         ]);
+    }
+
+    public function actionDeleteTasks($id)
+    {
+        return Task::deleteAll(['section_id' => $id]);
     }
 }

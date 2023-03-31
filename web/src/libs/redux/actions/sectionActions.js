@@ -22,6 +22,14 @@ export function deleteSectionSuccess(section) {
   return { type: types.DELETE_SECTION_SUCCESS, section };
 }
 
+export function deleteSectionTasksSuccess(section) {
+  return { type: types.DELETE_SECTION_TASKS_SUCCESS, section };
+}
+
+export function addSectionTasksSuccess(tasks) {
+  return { type: types.ADD_SECTION_TASKS_SUCCESS, tasks };
+}
+
 export function invalidateSectionsState() {
   return { type: types.INVALIDATE_SECTIONS_STATE };
 }
@@ -92,6 +100,19 @@ export function deleteSection(section, params) {
 
     return sectionApi.deleteSection(section.id, params).catch((error) => {
       dispatch(createSectionSuccess(section));
+      throw error;
+    });
+  };
+}
+
+export function deleteSectionTasks(section, params) {
+  return function (dispatch, getState) {
+    const tasks = getState().tasks;
+
+    dispatch(deleteSectionTasksSuccess(section));
+
+    return sectionApi.deleteTasks(section.id, params).catch((error) => {
+      dispatch(addSectionTasksSuccess(tasks));
       throw error;
     });
   };

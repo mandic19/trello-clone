@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   updateSection,
   deleteSection,
+  deleteSectionTasks,
 } from "../../libs/redux/actions/sectionActions";
 import {
   loadTasks,
@@ -99,7 +100,8 @@ const Section = (props) => {
           <AddNewTask
             section_id={section.id}
             order={tasks.length}
-            override={{ value: isAddNewTaskActive, set: setIsAddNewTaskActive }}
+            isActiveOverride={isAddNewTaskActive}
+            onCancelCallback={() => setIsAddNewTaskActive(false)}
           />
         </div>
       </div>
@@ -116,6 +118,7 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = {
   updateSection,
   deleteSection,
+  deleteSectionTasks,
   loadTasks,
   reorderTask,
   invalidateTasksState,

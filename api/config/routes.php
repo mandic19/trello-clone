@@ -69,6 +69,7 @@ return [
             'PUT <id>' => 'update',
             'PUT <id>/reorder' => 'reorder',
             'DELETE <id>' => 'delete',
+            'DELETE <id>/tasks' => 'delete-tasks',
             'OPTIONS <action>' => 'options',
             'OPTIONS <id>/<action>' => 'options',
             '' => 'options',

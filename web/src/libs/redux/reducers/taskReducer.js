@@ -51,9 +51,12 @@ export default function taskReducer(state = initialState.tasks, action) {
       }
 
       return result.sort((a, b) => a.order - b.order);
-
     case types.DELETE_TASK_SUCCESS:
       return state.filter((task) => task.id !== action.task.id);
+    case types.DELETE_SECTION_TASKS_SUCCESS:
+      return state.filter((task) => task.section_id !== action.section.id);
+    case types.ADD_SECTION_TASKS_SUCCESS:
+      return [...task, action.tasks];
     default:
       return state;
   }

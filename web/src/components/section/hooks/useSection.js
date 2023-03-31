@@ -6,6 +6,7 @@ const useSection = ({
   tasks,
   updateSection,
   deleteSection,
+  deleteSectionTasks,
   loadTasks,
   invalidateTasksState,
   reorderTask,
@@ -98,6 +99,7 @@ const useSection = ({
         {
           value: "archive_all_tasks",
           label: "Archive all cards in this list…",
+          onClick: () => deleteSectionTasks(section),
         },
       ],
     },
