@@ -14,11 +14,11 @@ import {
 import Loader from "../loader/Loader";
 import InputInline from "../input-inline/InputInline";
 import SortableList from "../sortable/SortableList";
-import Dropdown from "../dropdown/Dropdown";
 import Task from "../task/Task";
 import AddNewTask from "./components/add-new-task/AddNewTask";
 import useSection from "./hooks/useSection";
 import "./Section.css";
+import ContextMenu from "../context-menu/ContextMenu";
 
 const Section = (props) => {
   const {
@@ -29,13 +29,19 @@ const Section = (props) => {
     onChange,
     onSubmit,
     onBlur,
+    isCtxMenuOpened,
+    setIsCtxMenuOpened,
     onTaskDragEnd,
-    getHamburgerMenuOptions,
+    ctxMenuOptions,
+    ctxItemClickHandler,
   } = useSection(props);
 
   const className = `section-wrapper ${
     section.isDummyModel ? "sortable-ignore" : ""
   }`;
+
+  const ctxMenuCloseHandler = () => setIsCtxMenuOpened(false);
+  const ctxMenuToggleHandler = () => setIsCtxMenuOpened((prev) => !prev);
 
   return (
     <div className={className} data-id={section.id}>
@@ -51,13 +57,21 @@ const Section = (props) => {
               className="px-1 d-flex"
             />
           </div>
-          <Dropdown items={getHamburgerMenuOptions()}>
-            <div className="burger-menu sortable-ignore">
-              <button className="btn btn-neutral btn-icon-only">
-                <FontAwesomeIcon icon={faEllipsis} />
-              </button>
-            </div>
-          </Dropdown>
+          <div className="burger-menu sortable-ignore">
+            <button
+              className="btn btn-neutral btn-icon-only"
+              onClick={ctxMenuToggleHandler}
+            >
+              <FontAwesomeIcon icon={faEllipsis} />
+            </button>
+            {isCtxMenuOpened && (
+              <ContextMenu
+                title="List actions"
+                options={ctxMenuOptions}
+                onClose={ctxMenuCloseHandler}
+              />
+            )}
+          </div>
         </div>
         {isLoading ? (
           <div className="loading">

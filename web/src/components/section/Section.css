@@ -52,3 +52,7 @@
 .section-wrapper > .section > .footer {
   padding: 0 0.8rem 0.8rem;
 }
+
+.burger-menu {
+  position: relative;
+}

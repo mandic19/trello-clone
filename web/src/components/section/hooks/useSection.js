@@ -11,6 +11,7 @@ const useSection = ({
   reorderTask,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isCtxMenuOpened, setIsCtxMenuOpened] = useState(false);
 
   const { form, setForm, onChange, getParams, resetForm, validate } = useForm({
     board_id: { rules: ["required"], value: section.board_id },
@@ -65,11 +66,46 @@ const useSection = ({
     setForm({ ...form, isValid, errors, isSubmitted: true });
   };
 
-  const getHamburgerMenuOptions = () => {
-    return [
-      { content: "Archive this list", onClick: () => deleteSection(section) },
-    ];
-  };
+  const ctxMenuOptions = [
+    {
+      items: [
+        { value: "add_task", label: "Add card..." },
+        { value: "copy_section", label: "Copy list..." },
+        { value: "move_section", label: "Move list..." },
+        { value: "watch", label: "Watch" },
+      ],
+    },
+    {
+      label: "Automation",
+      items: [
+        {
+          value: "added_to_section",
+          label: "When a card is added to the list…",
+        },
+        { value: "ed_sort_section", label: "Every day, sort list by…" },
+        { value: "em_sort_section", label: "Every Monday, sort list by…" },
+        { value: "create_rule", label: "Create a rule" },
+      ],
+    },
+    {
+      items: [
+        { value: "move_all_tasks", label: "Move all cards in this list…" },
+        {
+          value: "archive_all_tasks",
+          label: "Archive all cards in this list…",
+        },
+      ],
+    },
+    {
+      items: [
+        {
+          value: "archive_section",
+          label: "Archive this list",
+          onClick: () => deleteSection(section),
+        },
+      ],
+    },
+  ];
 
   return {
     section,
@@ -79,8 +115,10 @@ const useSection = ({
     onChange,
     onSubmit,
     onBlur,
+    isCtxMenuOpened,
+    setIsCtxMenuOpened,
     onTaskDragEnd,
-    getHamburgerMenuOptions,
+    ctxMenuOptions,
   };
 };
 
