@@ -33,7 +33,8 @@ const Section = (props) => {
     setIsCtxMenuOpened,
     onTaskDragEnd,
     ctxMenuOptions,
-    ctxItemClickHandler,
+    isAddNewTaskActive,
+    setIsAddNewTaskActive,
   } = useSection(props);
 
   const className = `section-wrapper ${
@@ -95,7 +96,11 @@ const Section = (props) => {
           </div>
         )}
         <div className="footer sortable-ignore">
-          <AddNewTask section_id={section.id} order={tasks.length} />
+          <AddNewTask
+            section_id={section.id}
+            order={tasks.length}
+            override={{ value: isAddNewTaskActive, set: setIsAddNewTaskActive }}
+          />
         </div>
       </div>
     </div>

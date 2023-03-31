@@ -12,6 +12,7 @@ const useSection = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isCtxMenuOpened, setIsCtxMenuOpened] = useState(false);
+  const [isAddNewTaskActive, setIsAddNewTaskActive] = useState(false);
 
   const { form, setForm, onChange, getParams, resetForm, validate } = useForm({
     board_id: { rules: ["required"], value: section.board_id },
@@ -69,7 +70,11 @@ const useSection = ({
   const ctxMenuOptions = [
     {
       items: [
-        { value: "add_task", label: "Add card..." },
+        {
+          value: "add_task",
+          label: "Add card...",
+          onClick: () => setIsAddNewTaskActive(true),
+        },
         { value: "copy_section", label: "Copy list..." },
         { value: "move_section", label: "Move list..." },
         { value: "watch", label: "Watch" },
@@ -119,6 +124,8 @@ const useSection = ({
     setIsCtxMenuOpened,
     onTaskDragEnd,
     ctxMenuOptions,
+    isAddNewTaskActive,
+    setIsAddNewTaskActive,
   };
 };
 

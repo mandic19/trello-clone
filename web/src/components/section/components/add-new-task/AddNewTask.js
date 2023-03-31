@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -7,13 +7,25 @@ import InputInline from "../../../input-inline/InputInline";
 import useForm from "../../../../libs/hooks/useForm";
 import "./AddNewTask.css";
 
-const AddNewTask = ({ section_id, order, createTask }) => {
+const AddNewTask = ({ section_id, order, createTask, override = null }) => {
   const { form, setForm, resetForm, onChange, getParams, validate } = useForm({
     section_id: { rules: ["required"], value: section_id },
     name: { rules: ["required"] },
   });
 
   const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    if (!override) return;
+
+    setIsActive(override.value);
+  }, [override]);
+
+  useEffect(() => {
+    if (!override) return;
+
+    override.set(isActive);
+  }, [isActive]);
 
   const onCancel = () => setIsActive(false);
 
