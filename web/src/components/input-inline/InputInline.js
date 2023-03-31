@@ -22,7 +22,7 @@ const InputInline = ({
   ...props
 }) => {
   const isMounted = useRef(false);
-  const formRef = useRef(null);
+  const wrapperRef = useRef(null);
   const inputRef = useRef(null);
 
   const [inputValue, setInputValue] = useState(value);
@@ -59,11 +59,11 @@ const InputInline = ({
       document.removeEventListener("mouseup", outOfFocusHandler);
       document.removeEventListener(initEventName, onFocusOutHandler);
     };
-  }, [formRef]);
+  }, [wrapperRef]);
 
   const outOfFocusHandler = (e) => {
     const isOutOfFocus = !(
-      formRef.current && formRef.current.contains(e.target)
+      wrapperRef.current && wrapperRef.current.contains(e.target)
     );
 
     if (isOutOfFocus) {
@@ -74,9 +74,17 @@ const InputInline = ({
   const onMouseUpHandler = () => setIsInFocus(true);
   const onFocusOutHandler = () => setIsInFocus(false);
 
-  const wrapperClassName = `${
-    isInFocus ? styles.wrapperFocused : styles.wrapper
-  } ${className ? className : ""}`;
+  const wrapperClassList = [styles.wrapper];
+
+  if (isInFocus) {
+    wrapperClassList.push(styles.wrapperFocused, "sortable-ignore");
+  }
+
+  if (className) {
+    wrapperClassList.push(className);
+  }
+
+  const wrapperClassName = wrapperClassList.join(" ");
 
   const handleOnChange = (e) => {
     setInputValue(e.target.value);
@@ -109,8 +117,12 @@ const InputInline = ({
   };
 
   return (
-    <form ref={formRef} onSubmit={onSubmit}>
-      <div className={wrapperClassName} onMouseUp={onMouseUpHandler}>
+    <form onSubmit={onSubmit} className={styles.form}>
+      <div
+        ref={wrapperRef}
+        className={wrapperClassName}
+        onMouseUp={onMouseUpHandler}
+      >
         {isTextarea ? (
           <textarea {...getInputProps()} />
         ) : (
