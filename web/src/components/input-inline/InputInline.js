@@ -73,13 +73,12 @@ const InputInline = ({
     }
   };
 
-  const onMouseUpHandler = () => setIsInFocus(true);
   const onFocusOutHandler = () => setIsInFocus(false);
 
   const wrapperClassList = [styles.wrapper];
 
   if (isInFocus) {
-    wrapperClassList.push(styles.wrapperFocused, "sortable-ignore");
+    wrapperClassList.push(styles.wrapperFocused);
   }
 
   if (className) {
@@ -143,7 +142,7 @@ const InputInline = ({
       <div
         ref={wrapperRef}
         className={wrapperClassName}
-        onMouseUp={onMouseUpHandler}
+        onClick={() => setIsInFocus(true)}
       >
         {isTextarea ? (
           <textarea {...getInputProps()} />
