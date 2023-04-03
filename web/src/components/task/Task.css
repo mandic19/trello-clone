@@ -10,10 +10,14 @@
   min-height: 20px;
   position: relative;
   z-index: 0;
-  padding: 6px 8px;
+padding: 6px 8px;
 }
 
 .task:hover {
   background-color: var(--ds-surface-raised, #f4f5f7);
   border-bottom-color: var(--ds-border, #091e4240);
+}
+
+.task {
+  word-wrap: break-word;
 }

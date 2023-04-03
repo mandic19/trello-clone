@@ -101,7 +101,7 @@ const Section = (props) => {
             section_id={section.id}
             order={tasks.length}
             isActiveOverride={isAddNewTaskActive}
-            onCancelCallback={() => setIsAddNewTaskActive(false)}
+            onCancelCallback={() => setIsAddNewTaskActive}
           />
         </div>
       </div>
