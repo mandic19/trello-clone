@@ -1,13 +1,13 @@
 # Trello Clone App
 
-- [Description](#Description)
+- [Introduction](#Introduction)
 - [Instalation](#Instalation)
 - [Technologies](#Technologies)
 - [Directory-Structure](#Directory-Structure)
 - [Demo](#Demo)
 - [License](#License)
 
-## Description
+## Introduction
 
 This is a sample project with a purpose to replicate Trello board and it's functionalities.
 
