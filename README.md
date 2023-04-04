@@ -11,6 +11,31 @@
 
 This is a sample project with a purpose to replicate Trello board and it's functionalities.
 
+## Instalation
+
+### Development
+
+1. Navigate to a following directory: `cd docker/dev`
+2. Run command: `docker-compose -p "app_name" up --build`
+3. Run command: `winpty docker-compose exec api bash` and in the docker container:
+   - Navigate to `application/api` subdirectory
+   - Run `apt-get update`
+   - Run `composer install`
+   - Run `php init` and chose in which environment you want to run it
+   - Run `php yii migrate`
+
+### Production
+
+1. Navigate to a following directory: `cd docker/prod`
+2. Run command: `docker-compose -p "app_name" up --build`
+3. Run command: `winpty docker-compose exec api bash` and in the docker container:
+   - Navigate to `application/api` subdirectory
+   - Run `apt-get update`
+   - Run `composer install`
+   - Run `php init` and chose in which environment you want to run it
+   - Run `php yii migrate`
+
+
 ## Technologies
 
     ├── FRONTEND                      # React.JS
@@ -45,30 +70,6 @@ This is a sample project with a purpose to replicate Trello board and it's funct
     │   │   ├── docker-compose.yml           # Docker compose boilerplate file
     │   │   ├── docker-database.env          # Database environment variables
     └── README.md
-
-## Instalation
-
-### Development
-
-1. Navigate to a following directory: `cd docker/dev`
-2. Run command: `docker-compose -p "app_name" up --build`
-3. Run command: `winpty docker-compose exec api bash` and in the docker container:
-   - Navigate to `application/api` subdirectory
-   - Run `apt-get update`
-   - Run `composer install`
-   - Run `php init` and chose in which environment you want to run it
-   - Run `php yii migrate`
-
-### Production
-
-1. Navigate to a following directory: `cd docker/prod`
-2. Run command: `docker-compose -p "app_name" up --build`
-3. Run command: `winpty docker-compose exec api bash` and in the docker container:
-   - Navigate to `application/api` subdirectory
-   - Run `apt-get update`
-   - Run `composer install`
-   - Run `php init` and chose in which environment you want to run it
-   - Run `php yii migrate`
 
 ## Demo
 
