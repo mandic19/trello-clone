@@ -1,11 +1,13 @@
 .board-list {
   padding: 0 1.6rem;
+  margin: 0 10%;
 }
 
 .board-list > .content {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .board-list > .content > * {

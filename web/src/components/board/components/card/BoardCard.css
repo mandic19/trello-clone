@@ -7,10 +7,10 @@
   padding: 0.8rem;
   color: #FFFFFF;
   cursor: pointer;
-  background-image: url('../../../../assets/image/board-card-bg.png');
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+  background: linear-gradient(0deg, rgba(23, 43, 77, 1) 0%, rgba(2, 106, 167, 1) 100%);
 }
 
 .board-card:hover, 
