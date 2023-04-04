@@ -35,7 +35,6 @@ This is a sample project with a purpose to replicate Trello board and it's funct
    - Run `php init` and chose in which environment you want to run it
    - Run `php yii migrate`
 
-
 ## Technologies
 
     ├── FRONTEND                      # React.JS
@@ -73,9 +72,15 @@ This is a sample project with a purpose to replicate Trello board and it's funct
 
 ## Demo
 
+### Working with boards
+
 ![Example GIF](./demo/boards.gif)
 
+### Working with lists
+
 ![Example GIF](./demo/lists.gif)
+
+### Working with tasks
 
 ![Example GIF](./demo/tasks.gif)
 
