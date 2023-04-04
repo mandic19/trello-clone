@@ -11,6 +11,8 @@
 
 This is a sample project with a purpose to replicate Trello board and it's functionalities.
 
+![Example GIF](./demo/site.png)
+
 ## Instalation
 
 ### Development
