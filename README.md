@@ -1,11 +1,11 @@
 # Trello Clone App
 
-- [Description](##Description)
-- [Instalation](##Instalation)
-- [Technologies](##Technologies)
-- [Directory-Structure](##Directory-Structure)
-- [Demo](##Demo)
-- [License](##License)
+- [Description](#Description)
+- [Instalation](#Instalation)
+- [Technologies](#Technologies)
+- [Directory-Structure](#Directory-Structure)
+- [Demo](#Demo)
+- [License](#License)
 
 ## Description
 
