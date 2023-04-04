@@ -42,7 +42,7 @@ This is a sample project with a purpose to replicate Trello board and it's funct
     ├── RESTFUL API                   # Yii2 PHP Framework
     ├── WEBSERVER                     # Nginx
 
-## Directory-Structure
+## Directory Structure
 
     ├── api                                  # Yii2 Rest API template application
     ├── web                                  # React web application template
