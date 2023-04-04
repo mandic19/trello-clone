@@ -7,8 +7,10 @@
 .add-new-board .add-board-btn {
   height: 100%;
   width: 100%;
+  font-size: 1.4rem;
 }
 
 .add-new-board .borad-input-wrapper {
+  height: 8rem;
   width: 100%;
 }
