@@ -1,11 +1,10 @@
-Trello Clone
-============================
+# Trello Clone App
 
 ### Description
 
 This is a sample project with a purpose to replicate Trello board and it's functionalities.
 
-###Technologies used:    
+### Technologies:
 
     ├── FRONTEND                      # React.JS
     ├── RESTFUL API                   # Yii2 PHP Framework
@@ -20,7 +19,7 @@ This is a sample project with a purpose to replicate Trello board and it's funct
     │   ├── dev
     │   │   ├── web
     │   │   │   ├── Dockerfile               # FRONTEND container build instructions
-    │   │   ├── nginx                        
+    │   │   ├── nginx
     │   │   │   ├── default.config           # Nginx default configuration
     │   │   ├── api
     │   │   │   ├── Dockerfile               # API container build instructions
@@ -29,7 +28,7 @@ This is a sample project with a purpose to replicate Trello board and it's funct
     │   │   ├── docker-compose.yml           # Docker compose boilerplate file
     │   │   ├── docker-database.env          # Database environment variables
     │   ├── prod
-    │   │   ├── nginx                        
+    │   │   ├── nginx
     │   │   │   ├── Dockerfile               # Nginx container build instructions
     │   │   │   ├── default.config           # Nginx default configuration
     │   │   ├── api
@@ -39,7 +38,6 @@ This is a sample project with a purpose to replicate Trello board and it's funct
     │   │   ├── docker-compose.yml           # Docker compose boilerplate file
     │   │   ├── docker-database.env          # Database environment variables
     └── README.md
-
 
 ## Development
 
@@ -62,3 +60,15 @@ This is a sample project with a purpose to replicate Trello board and it's funct
    - Run `composer install`
    - Run `php init` and chose in which environment you want to run it
    - Run `php yii migrate`
+
+### Demo
+
+![Example GIF](./demo/1.gif)
+
+![Example GIF](./demo/2.gif)
+
+![Example GIF](./demo/3.gif)
+
+## License
+
+This project is licensed under the MIT License.
