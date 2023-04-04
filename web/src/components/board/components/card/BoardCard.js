@@ -12,7 +12,7 @@ const BoardCard = ({ board }) => {
   };
 
   return (
-    <div className="board-card" onClick={onClickHandler}>
+    <div className="board-card" onClick={onClickHandler} title={board.name}>
       {board.name}
     </div>
   );

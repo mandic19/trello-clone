@@ -94,6 +94,7 @@ const useSection = ({
         {
           value: "archive_all_tasks",
           label: "Archive all cards in this list…",
+          disabled: tasks.length < 1,
           onClick: () => deleteSectionTasks(section),
         },
       ],

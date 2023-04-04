@@ -44,7 +44,7 @@ const ContextMenu = ({ title, options = [], onClose }) => {
             <div key={index}>
               <div className={styles.groupContainer}>
                 {label && <div className={styles.gruopLabel}>{label}</div>}
-                {items.map(({ label, value, onClick }) => (
+                {items.map(({ label, value, onClick, disabled = false }) => (
                   <div
                     key={value}
                     className={styles.groupItem}
@@ -57,7 +57,7 @@ const ContextMenu = ({ title, options = [], onClose }) => {
                         onClick(e);
                       }
                     }}
-                    disabled={typeof onClick !== "function"}
+                    disabled={typeof onClick !== "function" || disabled}
                   >
                     {label}
                   </div>

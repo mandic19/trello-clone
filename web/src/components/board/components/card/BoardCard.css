@@ -8,6 +8,9 @@
   color: #FFFFFF;
   cursor: pointer;
   background-image: url('../../../../assets/image/board-card-bg.png');
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .board-card:hover, 
