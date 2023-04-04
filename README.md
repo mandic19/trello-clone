@@ -73,11 +73,11 @@ This is a sample project with a purpose to replicate Trello board and it's funct
 
 ## Demo
 
-![Example GIF](./demo/1.gif)
+![Example GIF](./demo/boards.gif)
 
-![Example GIF](./demo/2.gif)
+![Example GIF](./demo/lists.gif)
 
-![Example GIF](./demo/3.gif)
+![Example GIF](./demo/tasks.gif)
 
 ## License
 
