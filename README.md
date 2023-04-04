@@ -1,16 +1,23 @@
 # Trello Clone App
 
-### Description
+- [Description](##Description)
+- [Instalation](##Instalation)
+- [Technologies](##Technologies)
+- [Directory-Structure](##Directory-Structure)
+- [Demo](##Demo)
+- [License](##License)
+
+## Description
 
 This is a sample project with a purpose to replicate Trello board and it's functionalities.
 
-### Technologies:
+## Technologies
 
     ├── FRONTEND                      # React.JS
     ├── RESTFUL API                   # Yii2 PHP Framework
     ├── WEBSERVER                     # Nginx
 
-### Directory structure
+## Directory-Structure
 
     ├── api                                  # Yii2 Rest API template application
     ├── web                                  # React web application template
@@ -39,7 +46,9 @@ This is a sample project with a purpose to replicate Trello board and it's funct
     │   │   ├── docker-database.env          # Database environment variables
     └── README.md
 
-## Development
+## Instalation
+
+### Development
 
 1. Navigate to a following directory: `cd docker/dev`
 2. Run command: `docker-compose -p "app_name" up --build`
@@ -50,7 +59,7 @@ This is a sample project with a purpose to replicate Trello board and it's funct
    - Run `php init` and chose in which environment you want to run it
    - Run `php yii migrate`
 
-## Production
+### Production
 
 1. Navigate to a following directory: `cd docker/prod`
 2. Run command: `docker-compose -p "app_name" up --build`
@@ -61,7 +70,7 @@ This is a sample project with a purpose to replicate Trello board and it's funct
    - Run `php init` and chose in which environment you want to run it
    - Run `php yii migrate`
 
-### Demo
+## Demo
 
 ![Example GIF](./demo/1.gif)
 
