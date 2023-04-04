@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useRef } from "react";
 import styles from "./context.menu.module.css";
 
-const ContextMenu = ({ title, options = [], onClose }) => {
+const ContextMenu = ({ title, options = [], onClose, ...props }) => {
   const ref = useRef(null);
   useEffect(() => {
     document.dispatchEvent(new Event("ctx-menu-init"));
@@ -26,7 +26,7 @@ const ContextMenu = ({ title, options = [], onClose }) => {
   const ctxMenuInitHandler = () => onClose();
 
   return (
-    <div className={styles.contextMenu} ref={ref}>
+    <div className={styles.contextMenu} ref={ref} {...props}>
       <div className={styles.header}>
         <div className={styles.title}>{title}</div>
         <span className={styles.closeBtn} onClick={onClose}>

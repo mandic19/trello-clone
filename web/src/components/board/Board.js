@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateBoard } from "../../libs/redux/actions/boardActions";
+import {
+  updateBoard,
+  deleteBoard,
+} from "../../libs/redux/actions/boardActions";
 import { invalidateSectionsState } from "../../libs/redux/actions/sectionActions";
 import { invalidateTasksState } from "../../libs/redux/actions/taskActions";
 import { reorderSection } from "../../libs/redux/actions/sectionActions";
@@ -10,6 +13,9 @@ import Section from "../section/Section";
 import AddNewSection from "../section/components/add-new-section/AddNewSection";
 import useBoard from "./hooks/useBoard";
 import "./Board.css";
+import ContextMenu from "../context-menu/ContextMenu";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 
 const Board = (props) => {
   const {
@@ -20,6 +26,9 @@ const Board = (props) => {
     onSubmit,
     onBlur,
     onSectionDragEnd,
+    isCtxMenuOpened,
+    setIsCtxMenuOpened,
+    ctxMenuOptions,
   } = useBoard(props);
 
   const sectionCnt = sections.length;
@@ -36,6 +45,22 @@ const Board = (props) => {
             className="input-inline-wrapper px-2"
             value={form.fields.name.value}
           />
+        </div>
+        <div className="burger-menu">
+          <button
+            className="btn btn-secondary btn-icon-only"
+            onClick={() => setIsCtxMenuOpened(true)}
+          >
+            <FontAwesomeIcon icon={faEllipsis} />
+          </button>
+          {isCtxMenuOpened && (
+            <ContextMenu
+              title="Board actions"
+              options={ctxMenuOptions}
+              onClose={() => setIsCtxMenuOpened(false)}
+              style={{ right: 0 }}
+            />
+          )}
         </div>
       </div>
       <div className="body">
@@ -71,6 +96,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   updateBoard,
+  deleteBoard,
   reorderSection,
   invalidateSectionsState,
   invalidateTasksState,

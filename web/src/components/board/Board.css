@@ -4,6 +4,8 @@
 }
 
 .board > .header {
+  display: flex;
+  align-items: center;
   padding: 0.8rem 2rem;
 }
 
@@ -15,6 +17,11 @@
   font-size: 1.8rem;
   font-weight: 700;
   line-height: 3.2rem;
+  flex-grow: 1;
+}
+
+.board > .header > .burger-menu {
+  position: relative;
 }
 
 .board > .body {
