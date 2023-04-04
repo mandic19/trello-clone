@@ -3,7 +3,7 @@
 - [Introduction](#Introduction)
 - [Instalation](#Instalation)
 - [Technologies](#Technologies)
-- [Directory-Structure](#Directory-Structure)
+- [Directory Structure](#Directory-Structure)
 - [Demo](#Demo)
 - [License](#License)
 
