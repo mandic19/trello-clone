@@ -6,7 +6,7 @@ import "./BoardList.css";
 const BoardList = ({ boards }) => {
   return (
     <div className="board-list">
-      <h2>Boards</h2>
+      <h2 className="title">Boards</h2>
       <div className="content">
         {boards.map((board) => (
           <BoardCard key={board.id} board={board} />
