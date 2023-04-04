@@ -120,6 +120,7 @@ const InputInline = ({
       className: styles.input,
       value: inputValue,
       readOnly: !isInFocus,
+      autoComplete: "off",
       ...props,
     };
 
