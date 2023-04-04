@@ -33,6 +33,8 @@ export default function sectionReducer(state = initialState.sections, action) {
         .sort((a, b) => a.order - b.order);
     case types.DELETE_SECTION_SUCCESS:
       return state.filter((section) => section.id !== action.section.id);
+    case types.INVALIDATE_SECTIONS_STATE:
+      return initialState.sections;
     default:
       return state;
   }

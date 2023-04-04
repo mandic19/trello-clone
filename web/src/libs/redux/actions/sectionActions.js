@@ -33,7 +33,6 @@ export function addSectionTasksSuccess(tasks) {
 export function invalidateSectionsState() {
   return { type: types.INVALIDATE_SECTIONS_STATE };
 }
-
 export function loadSections(params) {
   return function (dispatch) {
     return sectionApi

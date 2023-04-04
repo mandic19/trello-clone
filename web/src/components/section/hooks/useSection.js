@@ -8,7 +8,6 @@ const useSection = ({
   deleteSection,
   deleteSectionTasks,
   loadTasks,
-  invalidateTasksState,
   reorderTask,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,10 +26,6 @@ const useSection = ({
       setIsLoading(true);
       loadTasks({ section_id: section.id }).then(() => setIsLoading(false));
     }
-
-    return () => {
-      invalidateTasksState();
-    };
   }, []);
 
   const onTaskDragEnd = ({ from, to, item, oldIndex, newIndex }) => {

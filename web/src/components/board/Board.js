@@ -2,11 +2,12 @@ import React from "react";
 import { connect } from "react-redux";
 import { updateBoard } from "../../libs/redux/actions/boardActions";
 import { invalidateSectionsState } from "../../libs/redux/actions/sectionActions";
+import { invalidateTasksState } from "../../libs/redux/actions/taskActions";
 import { reorderSection } from "../../libs/redux/actions/sectionActions";
 import InputInline from "../input-inline/InputInline";
 import SortableList from "../sortable/SortableList";
 import Section from "../section/Section";
-import AddNewSection from "./components/add-new-section/AddNewSection";
+import AddNewSection from "../section/components/add-new-section/AddNewSection";
 import useBoard from "./hooks/useBoard";
 import "./Board.css";
 
@@ -72,6 +73,7 @@ const mapDispatchToProps = {
   updateBoard,
   reorderSection,
   invalidateSectionsState,
+  invalidateTasksState,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Board);

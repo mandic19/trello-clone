@@ -57,6 +57,8 @@ export default function taskReducer(state = initialState.tasks, action) {
       return state.filter((task) => task.section_id !== action.section.id);
     case types.ADD_SECTION_TASKS_SUCCESS:
       return [...task, action.tasks];
+    case types.INVALIDATE_TASKS_STATE:
+      return initialState.tasks;
     default:
       return state;
   }

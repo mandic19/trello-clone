@@ -7,19 +7,15 @@ import {
   deleteSection,
   deleteSectionTasks,
 } from "../../libs/redux/actions/sectionActions";
-import {
-  loadTasks,
-  reorderTask,
-  invalidateTasksState,
-} from "../../libs/redux/actions/taskActions";
+import { loadTasks, reorderTask } from "../../libs/redux/actions/taskActions";
 import Loader from "../loader/Loader";
 import InputInline from "../input-inline/InputInline";
 import SortableList from "../sortable/SortableList";
+import ContextMenu from "../context-menu/ContextMenu";
 import Task from "../task/Task";
-import AddNewTask from "./components/add-new-task/AddNewTask";
+import AddNewTask from "../task/components/add-new-task/AddNewTask";
 import useSection from "./hooks/useSection";
 import "./Section.css";
-import ContextMenu from "../context-menu/ContextMenu";
 
 const Section = (props) => {
   const {
@@ -38,15 +34,15 @@ const Section = (props) => {
     setIsAddNewTaskActive,
   } = useSection(props);
 
-  const className = `section-wrapper ${
-    section.isDummyModel ? "sortable-ignore" : ""
-  }`;
-
   const ctxMenuCloseHandler = () => setIsCtxMenuOpened(false);
   const ctxMenuToggleHandler = () => setIsCtxMenuOpened((prev) => !prev);
 
   return (
-    <div className={className} data-id={section.id}>
+    <div
+      className="section-wrapper"
+      data-id={section.id}
+      style={{ pointerEvents: section.isDummyModel ? "none" : "initial" }}
+    >
       <div className="section">
         <div className="header">
           <div className="title">
@@ -121,7 +117,6 @@ const mapDispatchToProps = {
   deleteSectionTasks,
   loadTasks,
   reorderTask,
-  invalidateTasksState,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Section);

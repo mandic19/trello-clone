@@ -15,6 +15,8 @@ export default function boardsReducer(state = initialState.boards, action) {
       );
     case types.DELETE_BOARD_SUCCESS:
       return state.filter((board) => board.id !== action.board.id);
+    case types.INVALIDATE_BOARDS_STATE:
+      return initialState.boards;
     default:
       return state;
   }

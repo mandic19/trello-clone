@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { loadBoard } from "../../libs/redux/actions/boardActions";
+import {
+  invalidateBoardsState,
+  loadBoard,
+} from "../../libs/redux/actions/boardActions";
 import Header from "../../components/header/Header";
 import Loader from "../../components/loader/Loader";
 import Board from "../../components/board/Board";
 import "./BoardPage.css";
 
-const BoardPage = ({ board, loadBoard }) => {
+const BoardPage = ({ board, loadBoard, invalidateBoardsState }) => {
   const [isLoading, setIsLoading] = useState(true);
   const { board_id } = useParams();
   const navigate = useNavigate();
@@ -16,6 +19,10 @@ const BoardPage = ({ board, loadBoard }) => {
     loadBoard(board_id)
       .then(() => setIsLoading(false))
       .catch(() => navigate("/page-not-found", { replace: true }));
+
+    return () => {
+      invalidateBoardsState();
+    };
   }, []);
 
   return (
@@ -36,6 +43,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   loadBoard,
+  invalidateBoardsState,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BoardPage);

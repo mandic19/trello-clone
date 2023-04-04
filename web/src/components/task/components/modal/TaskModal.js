@@ -30,14 +30,7 @@ import "./TaskModal.css";
 
 Modal.setAppElement("#root");
 
-const TaskModal = ({
-  task,
-  section,
-  isOpen,
-  onClose,
-  updateTask,
-  deleteTask,
-}) => {
+const TaskModal = ({ task, section, onClose, updateTask, deleteTask }) => {
   const { form, setForm, onChange, getParams, resetForm, validate } = useForm({
     name: {
       rules: [
@@ -53,7 +46,6 @@ const TaskModal = ({
       value: task.description,
     },
   });
-
 
   const onBlur = () => submitForm();
 
@@ -86,7 +78,7 @@ const TaskModal = ({
 
   return (
     <Modal
-      isOpen={isOpen}
+      isOpen={true}
       onRequestClose={onClose}
       className="modal"
       overlayClassName="modal-overlay"

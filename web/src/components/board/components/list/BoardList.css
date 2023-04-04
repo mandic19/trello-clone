@@ -1,0 +1,14 @@
+.board-list {
+  padding: 0 1.6rem;
+}
+
+.board-list > .content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.board-list > .content > * {
+  margin-bottom: 1.6rem;
+  margin-right: 1.6rem;
+}

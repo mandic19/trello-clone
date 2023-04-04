@@ -1,6 +1,7 @@
 import * as types from "./actionTypes";
 import * as boardApi from "../../api/boardApi";
 import { loadSectionsSuccess } from "./sectionActions";
+import { generateUUID } from "../../helpers/uuidHelper";
 
 export function loadBoardsSuccess(boards) {
   return { type: types.LOAD_BOARDS_SUCCESS, boards };
@@ -20,6 +21,10 @@ export function updateBoardSuccess(board) {
 
 export function deleteBoardSuccess(board) {
   return { type: types.DELETE_BOARD_SUCCESS, board };
+}
+
+export function invalidateBoardsState() {
+  return { type: types.INVALIDATE_BOARDS_STATE };
 }
 
 export function loadBoards(params) {
@@ -52,9 +57,18 @@ export function loadBoard(id, params) {
 
 export function createBoard(params) {
   return function (dispatch) {
+    const dummyBoard = {
+      id: generateUUID(),
+      isDummyModel: true,
+      ...params,
+    };
+
+    dispatch(createBoardSuccess(dummyBoard));
+
     return boardApi
       .createBoard(params)
       .then((board) => {
+        dispatch(deleteBoardSuccess(dummyBoard));
         dispatch(createBoardSuccess(board));
       })
       .catch((error) => {

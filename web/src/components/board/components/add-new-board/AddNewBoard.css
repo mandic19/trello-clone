@@ -1,0 +1,14 @@
+.add-new-board {
+  height: 8rem;
+  width: 27.45rem;
+  border-radius: 3px;
+}
+
+.add-new-board .add-board-btn {
+  height: 100%;
+  width: 100%;
+}
+
+.add-new-board .borad-input-wrapper {
+  width: 100%;
+}

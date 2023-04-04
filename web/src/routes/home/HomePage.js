@@ -1,14 +1,41 @@
-import React from "react";
-import Board from "../../components/board/Board";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import {
+  loadBoards,
+  invalidateBoardsState,
+} from "../../libs/redux/actions/boardActions";
 import Header from "../../components/header/Header";
+import Loader from "../../components/loader/Loader";
+import BoardList from "../../components/board/components/list/BoardList";
 
-const HomePage = () => {
+const HomePage = ({ boards, loadBoards, invalidateBoardsState }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    loadBoards().finally(() => setIsLoading(false));
+
+    return () => {
+      invalidateBoardsState();
+    };
+  }, []);
+
   return (
     <>
       <Header />
-      <Board />
+      {isLoading ? <Loader size="2x" /> : <BoardList boards={boards} />}
     </>
   );
 };
 
-export default HomePage;
+const mapStateToProps = (state) => {
+  return {
+    boards: state.boards,
+  };
+};
+
+const mapDispatchToProps = {
+  loadBoards,
+  invalidateBoardsState,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

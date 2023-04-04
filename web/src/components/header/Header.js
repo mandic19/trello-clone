@@ -3,14 +3,19 @@ import styles from "./header.module.css";
 import gridSvg from "../../assets/icons/grid.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   return (
     <header className={styles.header}>
       <button className="btn btn-transparent btn-icon-only">
         <img src={gridSvg} alt="grid" />
       </button>
-      <button className={`btn btn-transparent ${styles.logo}`}></button>
+      <button
+        className={`btn btn-transparent ${styles.logo}`}
+        onClick={() => navigate("/home")}
+      ></button>
       <div className={styles.nav}>
         <button className="btn btn-transparent">
           <span className="mr-1">Workspaces</span>

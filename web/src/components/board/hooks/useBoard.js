@@ -8,6 +8,7 @@ const useBoard = ({
   updateBoard,
   reorderSection,
   invalidateSectionsState,
+  invalidateTasksState,
 }) => {
   const isMounted = useRef(false);
 
@@ -19,6 +20,7 @@ const useBoard = ({
     isMounted.current = true;
     return () => {
       invalidateSectionsState();
+      invalidateTasksState();
     };
   }, []);
 

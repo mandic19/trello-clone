@@ -5,23 +5,21 @@ import "./Task.css";
 const Task = ({ task }) => {
   const [isModalOpened, setIsModalOpened] = useState(false);
 
-  const className = `task ${task.isDummyModel ? "sortable-ignore" : ""}`;
+  const onClickHandler = () => !task.isDummyModel && setIsModalOpened(true);
 
   return (
     <>
       <div
-        className={className}
+        className={`task ${task.isDummyModel ? "sortable-ignore" : ""}`}
         data-id={task.id}
-        onClick={() => setIsModalOpened(true)}
+        onClick={onClickHandler}
       >
         <div className="content">{task.name}</div>
         <div className="details"></div>
       </div>
-      <TaskModal
-        task={task}
-        isOpen={isModalOpened}
-        onClose={() => setIsModalOpened(false)}
-      />
+      {isModalOpened && (
+        <TaskModal task={task} onClose={() => setIsModalOpened(false)} />
+      )}
     </>
   );
 };
