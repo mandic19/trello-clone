@@ -11,7 +11,7 @@
 
 This is a sample project with a purpose to replicate Trello board and it's functionalities.
 
-![Example GIF](./demo/site.png)
+![Site Image](./demo/site.png)
 
 ## Instalation
 
@@ -76,15 +76,15 @@ This is a sample project with a purpose to replicate Trello board and it's funct
 
 ### Working with boards
 
-![Example GIF](./demo/boards.gif)
+![Boards GIF](./demo/boards.gif)
 
 ### Working with lists
 
-![Example GIF](./demo/lists.gif)
+![Lists GIF](./demo/lists.gif)
 
 ### Working with tasks
 
-![Example GIF](./demo/tasks.gif)
+![Tasks GIF](./demo/tasks.gif)
 
 ## License
 
